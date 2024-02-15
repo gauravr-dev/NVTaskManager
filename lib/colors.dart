@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const black = Color.fromRGBO(47, 46, 46, 1);
-  static const white = Color.fromRGBO(255, 255, 255, 1);
-  static const disabled = Color.fromRGBO(204, 204, 204, 1);
-  static const gray = Color.fromRGBO(128, 128, 128, 1);
-  static const lightGray = Color.fromRGBO(243, 243, 243, 1);
-  static const bgFade = Color.fromRGBO(82, 82, 82, 0.41);
-  static const bgWhiteFade = Color.fromRGBO(255, 255, 255, 0.22);
-  static const error = Color.fromRGBO(214, 26, 26, 1);
-  static const green = Color.fromRGBO(10, 196, 17, 1);
-  static const primaryBlue = Color.fromRGBO(0, 137, 134, 1.000);
+  static const primary = Color(0xFFF87070);
+  static const secondary = Color(0xFF70F3F8);
+  static const ternary = Color(0xFFD881F8);
+  static const quadratory = Color(0xFFD7E0FF);
+
+  static const background = Color(0xFF07E0FF);
+  static const secondaryBackground = Color(0xFFD7E0FF);
+  static const textBase = Color(0xFFD7E0FF);
+  static const textSecondary = Color(0xFFD7E0FF);
 }
+
+
+// Kumbh Sans
+// Robot Slab
+// Space Mono
+
+// H1 - Bold, 100px, 120px - line, -5px character
+// H2 - Bold, 100px, 120px - line, -5px character
+// H3 - Bold, 100px, 120px - line, -5px character
+// H4 - Bold, 100px, 120px - line, -5px character
+
+// Body1 - Bold, 14px, 18px - line
+// Body2 - Bold, 12px, 14px - line

@@ -5,6 +5,8 @@ class SegmentView extends StatelessWidget {
   final void Function(int) onPressed;
   final List<String> segmentTitles;
 
+  final double cornerRadius = 20;
+
   const SegmentView(
       {super.key, required this.segmentTitles, required this.onPressed});
 
@@ -15,11 +17,11 @@ class SegmentView extends StatelessWidget {
       children: segmentTitles.map((e) => Text(e)).toList().asMap(),
       decoration: BoxDecoration(
         color: Colors.amber,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(cornerRadius),
       ),
       thumbDecoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(cornerRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(.3),
