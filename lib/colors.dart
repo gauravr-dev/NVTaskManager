@@ -18,9 +18,9 @@ abstract class AppColors {
 // Space Mono
 
 // H1 - Bold, 100px, 120px - line, -5px character
-// H2 - Bold, 100px, 120px - line, -5px character
-// H3 - Bold, 100px, 120px - line, -5px character
-// H4 - Bold, 100px, 120px - line, -5px character
+// H2 - Bold, 28px, 34px - line
+// H3 - Bold, 16px, 19px - line, 35px character
+// H4 - Bold, 100px, 120px - line
 
 // Body1 - Bold, 14px, 18px - line
 // Body2 - Bold, 12px, 14px - line
