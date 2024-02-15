@@ -7,24 +7,40 @@ class SegmentView extends StatelessWidget {
 
   final double cornerRadius = 20;
 
+  //
+  // Theme props
+  //
+  final Color textColor;
+  final Color selectedTextColor;
+  final Color backgroundColor;
+  final Color segmentColor;
+  final int selectedSegment;
+
   const SegmentView(
-      {super.key, required this.segmentTitles, required this.onPressed});
+      {super.key,
+      required this.segmentTitles,
+      required this.onPressed,
+      required this.textColor,
+      required this.selectedTextColor,
+      required this.backgroundColor,
+      required this.segmentColor,
+      required this.selectedSegment});
 
   @override
   Widget build(BuildContext context) {
     return CustomSlidingSegmentedControl<int>(
-      initialValue: 0,
+      initialValue: selectedSegment,
       children: segmentTitles.map((e) => Text(e)).toList().asMap(),
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(cornerRadius),
       ),
       thumbDecoration: BoxDecoration(
-        color: Colors.white,
+        color: segmentColor,
         borderRadius: BorderRadius.circular(cornerRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.3),
+            color: backgroundColor.withOpacity(0.3),
             blurRadius: 4.0,
             spreadRadius: 1.0,
             offset: const Offset(
@@ -34,7 +50,7 @@ class SegmentView extends StatelessWidget {
           ),
         ],
       ),
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 100),
       curve: Curves.easeInToLinear,
       onValueChanged: (v) {
         onPressed(v);

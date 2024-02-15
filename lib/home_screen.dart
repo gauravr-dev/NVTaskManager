@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomodoro_app/TimerView.dart';
-import 'package:pomodoro_app/segment_view.dart';
+import './TimerView.dart';
+import './segment_view.dart';
+import './settings.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +12,9 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+
+Settings settings = Settings.default
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
