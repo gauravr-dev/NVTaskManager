@@ -87,7 +87,7 @@ class TimerView extends StatelessWidget {
     if (elapsedValue == 0) {
       return 0.0;
     }
-    return value / elapsedValue;
+    return elapsedValue / value;
   }
 
   elapsedTime() {

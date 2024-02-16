@@ -16,16 +16,19 @@ class SegmentView extends StatelessWidget {
   final Color backgroundColor;
   final Color segmentColor;
   final int selectedSegment;
+  final String fontFamily;
 
-  const SegmentView(
-      {super.key,
-      required this.segmentTitles,
-      required this.onPressed,
-      required this.textColor,
-      required this.selectedTextColor,
-      required this.backgroundColor,
-      required this.segmentColor,
-      required this.selectedSegment});
+  const SegmentView({
+    super.key,
+    required this.segmentTitles,
+    required this.onPressed,
+    required this.textColor,
+    required this.selectedTextColor,
+    required this.backgroundColor,
+    required this.segmentColor,
+    required this.selectedSegment,
+    required this.fontFamily,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,7 @@ class SegmentView extends StatelessWidget {
                 style: TextStyles.body2.copyWith(
                   color:
                       selectedSegmentTitle == e ? selectedTextColor : textColor,
+                  fontFamily: fontFamily,
                 ),
               ))
           .toList()
@@ -57,7 +61,7 @@ class SegmentView extends StatelessWidget {
             spreadRadius: 1.0,
             offset: const Offset(
               0.0,
-              2.0,
+              0.0,
             ),
           ),
         ],

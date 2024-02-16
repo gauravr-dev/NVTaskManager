@@ -18,7 +18,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   List<String> availableFonts = [
     "KumbhSans",
-    "RobotSlab",
+    "RobotoSlab",
     "SpaceMono",
   ];
 
@@ -39,16 +39,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   onChangeTimerValues(String timerName, String textValue) {
-    double value = double.parse(textValue);
+    int value = int.parse(textValue);
     switch (timerName) {
       case "pomodoro":
         settings.pomodoroTime = value;
         break;
       case "short break":
-        settings.pomodoroTime = value;
+        settings.shortBreakTime = value;
         break;
       case "long break":
-        settings.pomodoroTime = value;
+        settings.longBreakTime = value;
         break;
       default:
         print("$timerName not supported");
@@ -56,16 +56,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   onApplySettings() {
-    ref.read(settingsStateProvider.notifier).state = settings;
     Navigator.of(context).pop();
   }
 
   onChangeColor(Color color) {
-    settings.color = color;
+    setState(() {
+      settings.color = color;
+    });
   }
 
   onChangeFont(String font) {
-    settings.font = font;
+    setState(() {
+      settings.font = font;
+    });
   }
 
   onClose() {

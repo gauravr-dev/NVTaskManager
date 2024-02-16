@@ -125,10 +125,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   void startTimer() {
     _remainingSeconds =
-        settings.timerValueForPhase(task.phase) - task.elapsedTimeForPhase();
+        settings.timerSecondsForPhase(task.phase) - task.elapsedTimeForPhase();
 
     _timer = Timer.periodic(
-      Duration(seconds: _remainingSeconds),
+      const Duration(seconds: 1),
       (Timer timer) {
         if (_remainingSeconds == 0) {
           timer.cancel();
@@ -137,7 +137,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         setState(() {
           _remainingSeconds--;
           task.updateElapsedTimeForPhase(
-              settings.timerValueForPhase(task.phase) - _remainingSeconds);
+              settings.timerSecondsForPhase(task.phase) - _remainingSeconds);
         });
       },
     );
@@ -150,16 +150,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    settings = ref.watch(settingsStateProvider);
+    ref.listen(settingsStateProvider, (previous, next) {
+      setState(() {
+        settings = next;
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Pomodoro",
           style: TextStyles.h2.copyWith(
-            color: AppColors.textTernary,
-            fontSize: 24,
-          ),
+              color: AppColors.textTernary,
+              fontSize: 24,
+              fontFamily: settings.font),
         ),
         backgroundColor: AppColors.secondaryBackground,
       ),
@@ -184,7 +188,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.fromLTRB(1, 1, 1, 1),
                   child: SegmentView(
                     segmentTitles: const [
                       "Pomodoro",
@@ -197,6 +201,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     backgroundColor: AppColors.background,
                     segmentColor: settings.color,
                     selectedSegment: task.phase.index,
+                    fontFamily: settings.font,
                   ),
                 ),
                 Padding(
@@ -206,9 +211,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     backgroundColor: AppColors.background,
                     progressColor: settings.color,
                     radius: 150,
-                    value: settings.timerValueForPhase(task.phase),
+                    value: settings.timerSecondsForPhase(task.phase),
                     status: task.statusString(),
-                    elapsedValue: task.timeElapsed,
+                    elapsedValue: task.elapsedTimeForPhase(),
                     changeStatus: (elapsedTime) =>
                         {onChangeStatus(elapsedTime)},
                   ),
@@ -249,12 +254,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   onChangeStatus(int elapsedTime) {
     setState(() {
-      if (elapsedTime == settings.timerValueForPhase(task.phase)) {
+      if (elapsedTime == settings.timerSecondsForPhase(task.phase)) {
         task.status = TaskStatus.end;
         return;
       }
 
       task.changeStatus();
     });
+
+    switch (task.status) {
+      case TaskStatus.running:
+        startTimer();
+        break;
+      case TaskStatus.paused:
+        _timer?.cancel();
+        break;
+      case TaskStatus.end:
+        _timer?.cancel();
+        break;
+      default:
+    }
   }
 }

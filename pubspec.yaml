@@ -60,13 +60,13 @@ flutter:
       fonts:
         - asset: assets/fonts/KumbhSans-Bold.ttf
 
-    - family: RobotSlab
+    - family: RobotoSlab
       fonts:
-        - asset: assets/fonts/KumbhSans-Bold.ttf
+        - asset: assets/fonts/RobotoSlab-Bold.ttf
 
     - family: SpaceMono
       fonts:
-        - asset: assets/fonts/KumbhSans-Bold.ttf
+        - asset: assets/fonts/SpaceMono-Bold.ttf
 
   uses-material-design: true
 

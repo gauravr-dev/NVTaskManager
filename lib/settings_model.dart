@@ -5,9 +5,9 @@ import 'package:pomodoro_app/home_screen.dart';
 
 class Settings {
   String font;
-  double pomodoroTime;
-  double longBreakTime;
-  double shortBreakTime;
+  int pomodoroTime;
+  int longBreakTime;
+  int shortBreakTime;
   Color color;
 
   Settings(
@@ -24,19 +24,19 @@ class Settings {
       shortBreakTime: 5,
       longBreakTime: 15);
 
-  timerValueForPhase(TaskPhase phase) {
+  timerSecondsForPhase(TaskPhase phase) {
     switch (phase) {
       case TaskPhase.pomodoro:
-        return pomodoroTime;
+        return pomodoroTime * 60;
       case TaskPhase.shortBreak:
-        return shortBreakTime;
+        return shortBreakTime * 60;
       case TaskPhase.longBreak:
-        return longBreakTime;
+        return longBreakTime * 60;
       default:
-        return pomodoroTime;
+        return pomodoroTime * 60;
     }
   }
 }
 
 final settingsStateProvider =
-    StateProvider<Settings>((ref) => Settings.defaultSettings);
+    Provider<Settings>((ref) => Settings.defaultSettings);
