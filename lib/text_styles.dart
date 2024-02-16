@@ -1,40 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_app/colors.dart';
+
+// Kumbh Sans
+// Robot Slab
+// Space Mono
+
+// H1 - Bold, 100px, 120px - line, -5px character
+// H2 - Bold, 28px, 34px - line
+// H3 - Bold, 16px, 19px - line, 15px character
+// H4 - Bold, 13px, 16px - line, 5px character
+
+// Body1 - Bold, 14px, 18px - line
+// Body2 - Bold, 12px, 14px - line
+
+const String fontFamilyName = "KumbhSans";
 
 abstract class TextStyles {
-  static const header = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w500,
-    fontSize: 24,
-  );
-  static const subheader = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w400,
-    fontSize: 18,
-  );
-  static const largeLabel = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w500,
-    fontSize: 18,
+  static const h1 = TextStyle(
+      fontFamily: fontFamilyName,
+      fontWeight: FontWeight.bold,
+      fontSize: 100,
+      letterSpacing: -5,
+      color: Colors.amber);
+
+  static const h2 = TextStyle(
+    fontFamily: fontFamilyName,
+    fontWeight: FontWeight.bold,
+    fontSize: 28,
   );
 
-  static const mediumLabel = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w500,
-    fontSize: 16,
-  );
-  static const smallLabel = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w500,
+  static const h3 = TextStyle(
+      fontFamily: fontFamilyName,
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      letterSpacing: 15);
+
+  static const h4 = TextStyle(
+      fontFamily: fontFamilyName,
+      fontWeight: FontWeight.bold,
+      fontSize: 13,
+      letterSpacing: 5);
+
+  static const body1 = TextStyle(
+    fontFamily: fontFamilyName,
+    fontWeight: FontWeight.bold,
     fontSize: 14,
   );
-  static const bodyText = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
-  );
-  static const calendarText = TextStyle(
-    fontFamily: "Poppins",
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
+
+  static const body2 = TextStyle(
+    fontFamily: fontFamilyName,
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    color: AppColors.background,
   );
 }

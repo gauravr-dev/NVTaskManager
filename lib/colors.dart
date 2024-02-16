@@ -6,21 +6,13 @@ abstract class AppColors {
   static const ternary = Color(0xFFD881F8);
   static const quadratory = Color(0xFFD7E0FF);
 
-  static const background = Color(0xFF07E0FF);
-  static const secondaryBackground = Color(0xFFD7E0FF);
-  static const textBase = Color(0xFFD7E0FF);
-  static const textSecondary = Color(0xFFD7E0FF);
+  static const background = Color(0xFF1E213F);
+  static const secondaryBackground = Color(0xFF161932);
+  static const textBase = Color(0xFFFFFFFF);
+  static const textSecondary = Color(0xFFEFF1FA);
+  // D7E0FF
+  static const textTernary = Color(0xFFD7E0FF);
+  static const closeIconColor = Color(0xFF979797);
+
+  static const timerInputBackgroundColor = Color(0xFFEFF1FA);
 }
-
-
-// Kumbh Sans
-// Robot Slab
-// Space Mono
-
-// H1 - Bold, 100px, 120px - line, -5px character
-// H2 - Bold, 28px, 34px - line
-// H3 - Bold, 16px, 19px - line, 35px character
-// H4 - Bold, 100px, 120px - line
-
-// Body1 - Bold, 14px, 18px - line
-// Body2 - Bold, 12px, 14px - line

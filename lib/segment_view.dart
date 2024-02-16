@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:pomodoro_app/text_styles.dart';
 
 class SegmentView extends StatelessWidget {
   final void Function(int) onPressed;
@@ -28,9 +29,20 @@ class SegmentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String selectedSegmentTitle = segmentTitles[selectedSegment];
+
     return CustomSlidingSegmentedControl<int>(
       initialValue: selectedSegment,
-      children: segmentTitles.map((e) => Text(e)).toList().asMap(),
+      children: segmentTitles
+          .map((e) => Text(
+                e,
+                style: TextStyles.body2.copyWith(
+                  color:
+                      selectedSegmentTitle == e ? selectedTextColor : textColor,
+                ),
+              ))
+          .toList()
+          .asMap(),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(cornerRadius),
