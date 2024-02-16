@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pomodoro_app/colors.dart';
 import 'package:pomodoro_app/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -17,10 +20,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pomodoro App',
       theme: ThemeData(
-        // This is the theme of your application.
-        primarySwatch: Colors.blue,
+        primaryColor: AppColors.primary,
+        scaffoldBackgroundColor: AppColors.secondaryBackground,
       ),
       home: const HomeScreen(),
     );

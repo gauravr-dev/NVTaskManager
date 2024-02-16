@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomodoro_app/colors.dart';
 import 'package:pomodoro_app/home_screen.dart';
+import 'package:pomodoro_app/text_styles.dart';
 
 class Settings {
   String font;
@@ -19,7 +20,7 @@ class Settings {
 
   static var defaultSettings = Settings(
       color: AppColors.primary,
-      font: "KumbhSans",
+      font: fontFamilyName1,
       pomodoroTime: 25,
       shortBreakTime: 5,
       longBreakTime: 15);

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomodoro_app/button.dart';
 import 'package:pomodoro_app/colors.dart';
 import 'package:pomodoro_app/settings_model.dart';
+import 'package:pomodoro_app/strings.dart';
 import 'package:pomodoro_app/text_input_view.dart';
 import 'package:pomodoro_app/text_styles.dart';
 
@@ -17,9 +18,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Settings settings = Settings.defaultSettings;
 
   List<String> availableFonts = [
-    "KumbhSans",
-    "RobotoSlab",
-    "SpaceMono",
+    fontFamilyName1,
+    fontFamilyName2,
+    fontFamilyName3,
   ];
 
   List<Color> availableColors = [
@@ -28,7 +29,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     AppColors.ternary,
   ];
 
-  List<String> timers = ["pomodoro", "short break", "long break"];
+  List<String> timers = [
+    Strings.pomodoro,
+    Strings.shortBreak,
+    Strings.longBreak,
+  ];
 
   @override
   void initState() {
@@ -41,13 +46,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   onChangeTimerValues(String timerName, String textValue) {
     int value = int.parse(textValue);
     switch (timerName) {
-      case "pomodoro":
+      case Strings.pomodoro:
         settings.pomodoroTime = value;
         break;
-      case "short break":
+      case Strings.shortBreak:
         settings.shortBreakTime = value;
         break;
-      case "long break":
+      case Strings.longBreak:
         settings.longBreakTime = value;
         break;
       default:
@@ -137,7 +142,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Text(
             "Settings",
             style: TextStyle(
-              fontFamily: fontFamilyName,
+              fontFamily: fontFamilyName1,
               color: AppColors.secondaryBackground,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -169,7 +174,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Text(
                   "TIME (MINUTES)",
                   style: TextStyle(
-                    fontFamily: fontFamilyName,
+                    fontFamily: fontFamilyName1,
                     color: AppColors.secondaryBackground,
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
@@ -188,7 +193,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Text(
                   timers.first,
                   style: const TextStyle(
-                    fontFamily: fontFamilyName,
+                    fontFamily: fontFamilyName1,
                     color: AppColors.background,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -212,7 +217,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Text(
                   timers[1],
                   style: const TextStyle(
-                    fontFamily: fontFamilyName,
+                    fontFamily: fontFamilyName1,
                     color: AppColors.background,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -238,7 +243,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Text(
                   timers[2],
                   style: const TextStyle(
-                    fontFamily: fontFamilyName,
+                    fontFamily: fontFamilyName1,
                     color: AppColors.background,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -271,7 +276,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Text(
               "FONT",
               style: TextStyle(
-                fontFamily: fontFamilyName,
+                fontFamily: fontFamilyName1,
                 color: AppColors.secondaryBackground,
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
@@ -328,7 +333,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Text(
               "COLOR",
               style: TextStyle(
-                fontFamily: fontFamilyName,
+                fontFamily: fontFamilyName1,
                 color: AppColors.secondaryBackground,
                 fontSize: 11,
                 fontWeight: FontWeight.bold,

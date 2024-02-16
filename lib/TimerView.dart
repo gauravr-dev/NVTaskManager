@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pomodoro_app/colors.dart';
-import 'package:pomodoro_app/text_styles.dart';
 
 class TimerView extends StatelessWidget {
   final Color textColor;
@@ -11,6 +10,7 @@ class TimerView extends StatelessWidget {
   final int value;
   final String status;
   final int elapsedValue;
+  final String font;
   final Function(int) changeStatus;
 
   const TimerView({
@@ -22,6 +22,7 @@ class TimerView extends StatelessWidget {
     required this.value,
     required this.status,
     required this.elapsedValue,
+    required this.font,
     required this.changeStatus,
   });
 
@@ -56,9 +57,10 @@ class TimerView extends StatelessWidget {
                 Text(
                   elapsedTime(),
                   style: TextStyle(
-                      color: textColor,
-                      fontFamily: fontFamilyName,
-                      fontSize: 80),
+                    color: textColor,
+                    fontFamily: font,
+                    fontSize: 80,
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => {changeStatus(elapsedValue)},
@@ -66,7 +68,7 @@ class TimerView extends StatelessWidget {
                     status.toUpperCase(),
                     style: TextStyle(
                       color: textColor,
-                      fontFamily: fontFamilyName,
+                      fontFamily: font,
                       fontSize: 14,
                       letterSpacing: 15,
                     ),

@@ -214,6 +214,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     value: settings.timerSecondsForPhase(task.phase),
                     status: task.statusString(),
                     elapsedValue: task.elapsedTimeForPhase(),
+                    font: settings.font,
                     changeStatus: (elapsedTime) =>
                         {onChangeStatus(elapsedTime)},
                   ),
