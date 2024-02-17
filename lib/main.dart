@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomodoro_app/colors.dart';
-import 'package:pomodoro_app/home_screen.dart';
+import 'package:pomodoro_app/constants/colors.dart';
+import 'package:pomodoro_app/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
