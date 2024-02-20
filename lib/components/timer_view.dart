@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pomodoro_app/constants/colors.dart';
+import 'package:pomodoro_app/constants/widget_keys.dart';
+import 'package:intl/intl.dart';
 
 class TimerView extends StatelessWidget {
   final Color textColor;
@@ -63,6 +65,7 @@ class TimerView extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  key: timerStartButton,
                   onTap: () => {changeStatus(elapsedValue)},
                   child: Text(
                     status.toUpperCase(),
@@ -97,6 +100,7 @@ class TimerView extends StatelessWidget {
     int remMinutes = remainingSeconds ~/ 60;
     int remSeconds = (remainingSeconds % 60);
 
-    return "$remMinutes : $remSeconds";
+    var twoDigits = NumberFormat("00", "en_US");
+    return "${twoDigits.format(remMinutes)}:${twoDigits.format(remSeconds)}";
   }
 }

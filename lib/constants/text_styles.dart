@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/colors.dart';
 
+// Figma Styles
 // Kumbh Sans
 // Robot Slab
 // Space Mono

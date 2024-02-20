@@ -4,18 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomodoro_app/constants/colors.dart';
 import 'package:pomodoro_app/constants/strings.dart';
+import 'package:pomodoro_app/constants/widget_keys.dart';
+import 'package:pomodoro_app/provider/settings_state_provider.dart';
 import 'package:pomodoro_app/screens/settings_screen.dart';
 import 'package:pomodoro_app/models/task.dart';
 import 'package:pomodoro_app/constants/text_styles.dart';
-import '../components/TimerView.dart';
+import '../components/timer_view.dart';
 import '../components/segment_view.dart';
 import '../models/settings_model.dart';
+
+const double iconSize = 28;
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
@@ -55,46 +59,48 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     String screenTitle = "pomodoro";
 
-    ref.listen(settingsStateProvider, (previous, next) {
-      setState(() {
-        settings = next;
-      });
-    });
+    settings = ref.watch(settingsStateProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          screenTitle,
-          style: TextStyles.h2.copyWith(
-              color: AppColors.textTernary,
-              fontSize: 24,
-              fontFamily: settings.font),
+    const segmentViewPadding = EdgeInsets.fromLTRB(24, 45, 24, 20);
+    const timerViewPadding = EdgeInsets.all(24);
+    const iconPadding = EdgeInsets.all(1);
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            screenTitle,
+            style: TextStyles.h2.copyWith(
+                color: AppColors.textTernary,
+                fontSize: 24,
+                fontFamily: settings.font),
+          ),
+          backgroundColor: AppColors.secondaryBackground,
         ),
         backgroundColor: AppColors.secondaryBackground,
-      ),
-      backgroundColor: AppColors.secondaryBackground,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.secondaryBackground,
-              AppColors.background.withOpacity(0.3),
-              AppColors.background.withOpacity(0.3),
-              AppColors.background.withOpacity(0.3),
-              AppColors.background.withOpacity(0.3),
-              AppColors.secondaryBackground,
-            ],
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.secondaryBackground,
+                AppColors.background.withOpacity(0.3),
+                AppColors.background.withOpacity(0.3),
+                AppColors.background.withOpacity(0.3),
+                AppColors.background.withOpacity(0.3),
+                AppColors.secondaryBackground,
+              ],
+            ),
           ),
-        ),
-        child: Center(
-          child: SafeArea(
+          child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 45, 24, 20),
+                  padding: segmentViewPadding,
                   child: SegmentView(
+                    key: pomodoroPhaseSegment,
                     segmentTitles: const [
                       Strings.pomodoro,
                       Strings.shortBreak,
@@ -110,8 +116,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(24),
+                  padding: timerViewPadding,
                   child: TimerView(
+                    key: pomodoroTimer,
                     textColor: AppColors.textTernary,
                     backgroundColor: AppColors.background,
                     progressColor: settings.color,
@@ -125,9 +132,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(44),
+                  padding: iconPadding,
                   child: IconButton(
-                      iconSize: 28,
+                      key: const Key('SettingsButton'),
+                      iconSize: iconSize,
                       onPressed: () => {
                             // Present the settings screen
                             openDialog()
@@ -154,11 +162,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   onChangeValue(int idx) {
-    if (_timer?.isActive ?? true) {
-      _timer?.cancel();
-      // update timer settings
-      task = Task();
-    }
+    _timer?.cancel();
+    // update timer settings
+    task = Task();
+
     setState(() {
       task.setPhase(idx);
     });
@@ -178,7 +185,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case TaskStatus.running:
         startTimer();
         break;
-      case TaskStatus.paused:
+      case TaskStatus.start:
         _timer?.cancel();
         break;
       case TaskStatus.end:
@@ -186,5 +193,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         break;
       default:
     }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _timer = null;
+
+    super.dispose();
   }
 }

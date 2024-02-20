@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/constants/text_styles.dart';
 
-class NVButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String buttonText;
   final Image? icon;
   final void Function() onPressed;
@@ -10,7 +10,7 @@ class NVButton extends StatelessWidget {
   final double height;
   final double? width;
 
-  const NVButton({
+  const CustomButton({
     super.key,
     required this.onPressed,
     required this.buttonText,

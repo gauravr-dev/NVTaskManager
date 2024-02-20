@@ -1,4 +1,4 @@
-enum TaskStatus { start, paused, end, running }
+enum TaskStatus { start, end, running }
 
 enum TaskPhase { pomodoro, shortBreak, longBreak }
 
@@ -40,8 +40,6 @@ class Task {
     switch (status) {
       case TaskStatus.start:
         return "Start";
-      case TaskStatus.paused:
-        return "Paused";
       case TaskStatus.end:
         return "Ended";
       case TaskStatus.running:
@@ -85,10 +83,7 @@ class Task {
         status = TaskStatus.running;
         break;
       case TaskStatus.running:
-        status = TaskStatus.paused;
-        break;
-      case TaskStatus.paused:
-        status = TaskStatus.running;
+        status = TaskStatus.start;
         break;
       default:
         status = TaskStatus.start;

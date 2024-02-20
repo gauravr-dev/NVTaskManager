@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomodoro_app/components/button.dart';
+import 'package:pomodoro_app/components/custom_button.dart';
 import 'package:pomodoro_app/constants/colors.dart';
 import 'package:pomodoro_app/models/settings_model.dart';
 import 'package:pomodoro_app/constants/strings.dart';
 import 'package:pomodoro_app/components/text_input_view.dart';
 import 'package:pomodoro_app/constants/text_styles.dart';
+import 'package:pomodoro_app/provider/settings_state_provider.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SettingsScreenState();
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
@@ -38,20 +39,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    settings = ref.read(settingsStateProvider);
+    settings = ref.read(settingsStateProvider.notifier).getSettings();
   }
 
   onChangeTimerValues(String timerName, String textValue) {
     int value = int.parse(textValue);
+
     switch (timerName) {
       case Strings.pomodoro:
-        settings.pomodoroTime = value;
+        settings = settings.copyWith(pomodoroTime: value);
         break;
       case Strings.shortBreak:
-        settings.shortBreakTime = value;
+        settings = settings.copyWith(shortBreakTime: value);
         break;
       case Strings.longBreak:
-        settings.longBreakTime = value;
+        settings = settings.copyWith(longBreakTime: value);
         break;
       default:
         print("$timerName not supported");
@@ -65,13 +67,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   onChangeColor(Color color) {
     setState(() {
-      settings.color = color;
+      settings = settings.copyWith(color: color);
     });
   }
 
   onChangeFont(String font) {
     setState(() {
-      settings.font = font;
+      settings = settings.copyWith(font: font);
     });
   }
 
@@ -84,46 +86,54 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: NVButton(
-          onPressed: () => {onApplySettings()},
-          buttonText: "Apply",
-          backgroundColor: AppColors.primary,
-          textColor: Colors.white,
-          height: 53,
-        ),
-        body: Container(
-          margin: const EdgeInsets.fromLTRB(8, 24, 8, 24),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(12),
-            ),
-          ),
-          child: Column(
+        body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              buildHeader(),
-              const Divider(
-                height: 1,
-                color: Colors.black26,
+              Container(
+                margin: const EdgeInsets.fromLTRB(8, 24, 8, 24),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    buildHeader(),
+                    const Divider(
+                      height: 1,
+                      color: Colors.black26,
+                    ),
+                    buildTimerInputsWidget(
+                        timers, settings, onChangeTimerValues),
+                    const Divider(
+                      height: 1,
+                      color: Colors.black26,
+                      indent: 28,
+                      endIndent: 28,
+                    ),
+                    buildFontSelectionWidget(
+                        availableFonts, settings.font, onChangeFont),
+                    const Divider(
+                      height: 1,
+                      color: Colors.black26,
+                      indent: 28,
+                      endIndent: 28,
+                    ),
+                    buildColorsSelectionWidget(
+                        availableColors, settings.color, onChangeColor),
+                  ],
+                ),
               ),
-              buildTimerInputsWidget(timers, settings, onChangeTimerValues),
-              const Divider(
-                height: 1,
-                color: Colors.black26,
-                indent: 28,
-                endIndent: 28,
-              ),
-              buildFontSelectionWidget(
-                  availableFonts, settings.font, onChangeFont),
-              const Divider(
-                height: 1,
-                color: Colors.black26,
-                indent: 28,
-                endIndent: 28,
-              ),
-              buildColorsSelectionWidget(
-                  availableColors, settings.color, onChangeColor)
+              CustomButton(
+                onPressed: () => {onApplySettings()},
+                buttonText: "Apply",
+                backgroundColor: AppColors.primary,
+                textColor: Colors.white,
+                height: 53,
+              )
             ],
           ),
         ),
@@ -224,7 +234,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 TimeInputView(
-                  text: settings.pomodoroTime.toString(),
+                  text: settings.shortBreakTime.toString(),
                   height: 40,
                   width: 140,
                   textCompletion: (text) => {
@@ -251,7 +261,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 TimeInputView(
-                  text: settings.pomodoroTime.toString(),
+                  text: settings.longBreakTime.toString(),
                   height: 40,
                   width: 140,
                   textCompletion: (text) => {
@@ -327,7 +337,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     Function(Color) changeColorCallback,
   ) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(88, 24, 88, 8),
+      padding: const EdgeInsets.fromLTRB(88, 24, 88, 60),
       child: Column(
         children: [
           const Padding(

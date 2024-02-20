@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomodoro_app/constants/colors.dart';
 import 'package:pomodoro_app/models/task.dart';
 import 'package:pomodoro_app/constants/text_styles.dart';
 
+@immutable
 class Settings {
-  String font;
-  int pomodoroTime;
-  int longBreakTime;
-  int shortBreakTime;
-  Color color;
+  final String font;
+  final int pomodoroTime;
+  final int longBreakTime;
+  final int shortBreakTime;
+  final Color color;
 
-  Settings(
+  const Settings(
       {required this.color,
       required this.font,
       required this.pomodoroTime,
       required this.shortBreakTime,
       required this.longBreakTime});
 
-  static var defaultSettings = Settings(
+  static var defaultSettings = const Settings(
       color: AppColors.primary,
       font: fontFamilyName1,
       pomodoroTime: 25,
@@ -37,19 +37,20 @@ class Settings {
         return pomodoroTime * 60;
     }
   }
-}
 
-class SettingNotifier extends StateNotifier<Settings> {
-  SettingNotifier(super.state);
-
-  updateSettings(Settings settings) {
-    state = settings;
+  Settings copyWith({
+    Color? color,
+    String? font,
+    int? pomodoroTime,
+    int? shortBreakTime,
+    int? longBreakTime,
+  }) {
+    return Settings(
+      color: color ?? this.color,
+      font: font ?? this.font,
+      pomodoroTime: pomodoroTime ?? this.pomodoroTime,
+      shortBreakTime: shortBreakTime ?? this.shortBreakTime,
+      longBreakTime: longBreakTime ?? this.longBreakTime,
+    );
   }
-
-  reset() {
-    state = Settings.defaultSettings;
-  }
 }
-
-final settingsStateProvider = StateNotifierProvider<SettingNotifier, Settings>(
-    (ref) => SettingNotifier(Settings.defaultSettings));

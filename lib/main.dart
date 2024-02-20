@@ -8,7 +8,9 @@ void main() {
 
   runApp(
     const ProviderScope(
-      child: MyApp(),
+      child: MyApp(
+        key: Key("PomodoroApp"),
+      ),
     ),
   );
 }
@@ -25,7 +27,9 @@ class MyApp extends ConsumerWidget {
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.secondaryBackground,
       ),
-      home: const HomeScreen(),
+      home: const HomeScreen(
+        key: Key("HomeScreen"),
+      ),
     );
   }
 }

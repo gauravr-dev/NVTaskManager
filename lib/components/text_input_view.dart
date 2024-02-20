@@ -19,7 +19,13 @@ class TimeInputView extends StatelessWidget {
     required this.textCompletion,
   }) {
     _controller.text = text;
-    _controller.addListener(() => textCompletion(_controller.text));
+    _controller.addListener(
+      () {
+        if (text.isNotEmpty) {
+          textCompletion(_controller.text);
+        }
+      },
+    );
 
     _decrementButton = GestureDetector(
       onTap: _decrementValue,
@@ -60,6 +66,8 @@ class TimeInputView extends StatelessWidget {
       height: height,
       width: width,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: TextField(
